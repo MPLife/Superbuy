@@ -1,0 +1,22 @@
+{
+  "name": "superbuy",
+  "version": "1.0.0",
+  "description": "名品导购超级购项目",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MPLife/Superbuy.git"
+  },
+  "author": "ShiroPika",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MPLife/Superbuy/issues"
+  },
+  "homepage": "https://github.com/MPLife/Superbuy#readme",
+  "dependencies": {
+    "element-ui": "^1.0.4"
+  }
+}
