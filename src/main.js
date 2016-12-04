@@ -1,31 +1,46 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import App from './App.vue'
+import VueRouter from "vue-router";
+import VueResource from 'vue-resource'
+import Element from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+Vue.use(Element)
 
-import routes from './config/routes'
-import store from './store/'
-import components from './components/' //加载公共组件
+//开启debug模式
+Vue.config.debug = true;
 
-import './css/common.css'
-import './less/common.less'
+Vue.use(VueRouter);
+Vue.use(VueResource);
 
-Object.keys(components).forEach((key) => {
-    var name = key.replace(/(\w)/, (v) => v.toUpperCase()) //首字母大写
-    Vue.component(`v${name}`, components[key])
-})
 
-Vue.use(VueRouter)
+// 定义组件, 也可以像教程之前教的方法从别的文件引入
+const First = { template: '<div><h2>我是第 1 个子页面</h2></div>' }
+import secondcomponent from './component/secondcomponent.vue'
 
+
+
+// 创建一个路由器实例
+// 并且配置路由规则
 const router = new VueRouter({
-    routes
+    mode: 'history',
+    base: __dirname,
+    routes: [
+        {
+            path: '/first',
+            component: First
+        },
+        {
+            path: '/second',
+            component: secondcomponent
+        }
+    ]
 })
-router.beforeEach(({meta, path}, from, next) => {
-    var { auth = true } = meta
-    var isLogin = Boolean(store.state.user.id) //true用户已登录， false用户未登录
 
-    if (auth && !isLogin && path !== '/login') {
-        return next({ path: '/login' })
-    }
-    next()
-})
 
-new Vue({ store, router }).$mount('#app')
+// 现在我们可以启动应用了！
+// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
+const app = new Vue({
+    router: router,
+    render: h => h(App)
+    // components: { firstcomponent, secondcomponent }
+}).$mount('#app')
